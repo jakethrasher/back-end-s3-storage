@@ -7,9 +7,13 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>File Upload</h1>
     <form action="/upload" method="POST" enctype="multipart/form-data">
-        <input type="file" name="avatar">
+        <h3>Upload your avatar</h3>
+        <input type="file" name="avatar" multiple/>
+        <input type="text" name="first-name" placeholder="first name"/>
+        <input type="text" name="last-name" placeholder="last name"/>
+        <input type="text" name="email" placeholder="email"/>
+        <input type="text" name="phone-number" placeholder="phone-number"/>
         <button>submit</button>
     </form>
 </body>
