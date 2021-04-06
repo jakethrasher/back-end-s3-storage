@@ -2,14 +2,10 @@ const pool = require('../lib/utils/pool');
 const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
-const FormData = require('form-data');
-const fs = require('fs');
-const { join } = require('path');
-const { setUncaughtExceptionCaptureCallback } = require('process');
 
 jest.mock('../lib/utils/s3.js',()=>{
   return {single:()=>(req,res,next)=>{
-    req.file = {location:'hi'}
+    req.file = {location:'https://my-first-bucket-cool.s3.us-west-2.amazonaws.com/94445dc1-d675-4ace-bb0d-83d7242ad352-image'}
   next()
  }}
 })
@@ -19,7 +15,7 @@ describe('back-end-s3-storage routes', () => {
   beforeEach(() => {
     return setup(pool);
   });
-});
+
 
 const testBassist = {
   image:'larry-graham.jpg',
@@ -40,3 +36,4 @@ it('creates a bassist profile', async()=>{
     associatedActs:'Sly and The Family Stone, Graham Central Station'
   })
 })
+});
