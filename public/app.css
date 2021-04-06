@@ -3,7 +3,8 @@ li{
 }
 
 img{
-    width: 300px;
+   max-width: 100%;
+   height:auto;
 }
 h4{
     margin:0;
@@ -12,15 +13,21 @@ h4{
 p{
     margin:0;
 }
+.form-container{
+    display: flex;
+}
+.ul-container{
+    width: 80%;
+}
 
 ul{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 li{
     width: 200px;
-    height: 295px;
+    height: min-content;
     display: flex;
     flex-direction: column;
 }

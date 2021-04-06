@@ -1,6 +1,8 @@
 const form = document.querySelector('form');
 const fileField = document.querySelector('input[type="file"]');
-import {renderData} from './api-utils.js'
+import {renderData} from './renderData.js'
+const ul = document.querySelector('ul');
+const endpoint = 'http://localhost:7890/api/v1/upload'
 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -8,8 +10,6 @@ form.addEventListener('submit', (e) => {
     const formData = new FormData(form);
     formData.append('image',fileField.files[0],'image')
   
-    const endpoint = 'http://localhost:7890/api/v1/upload'
-
     const options = {
         method: 'POST',
         body:formData,
@@ -17,7 +17,10 @@ form.addEventListener('submit', (e) => {
       
     fetch(endpoint,options)
     .then((response)=>response.json())
-    .then((data)=>renderData(data))
+    .then((data)=>ul.append(renderData(data)))
     
-
 });
+
+fetch(endpoint)
+    .then(response=>response.json())
+    .then(data=>data.forEach(data=>ul.append(renderData(data))))

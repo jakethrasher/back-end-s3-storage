@@ -5,6 +5,15 @@ const app = require('../lib/app');
 const FormData = require('form-data');
 const fs = require('fs');
 const { join } = require('path');
+const { setUncaughtExceptionCaptureCallback } = require('process');
+
+jest.mock('../lib/utils/s3.js',()=>{
+  return {single:()=>(req,res,next)=>{
+    req.file = {location:'hi'}
+  next()
+ }}
+})
+  
 
 describe('back-end-s3-storage routes', () => {
   beforeEach(() => {
@@ -17,17 +26,17 @@ const testBassist = {
   fullName:'Larry Graham',
   associatedActs:'Sly and The Family Stone, Graham Central Station'
 }
+
 it('creates a bassist profile', async()=>{
   
-  const fd = new FormData();
-
-  fd.append('image','image')
-  fd.append('fullName', 'Larry Graham')
-  fd.append('associatedActs','Sly and The Family Stone, Graham Central Station')
-
   const data = await request(app)
   .post('/api/v1/upload')
-  .send(JSON.stringify(fd))
-  console.log(data.body)
-  expect(data.body).toEqual(testBassist)
+  .send(testBassist)
+  
+  expect(data.body).toEqual({
+    id:expect.any(String),
+    image:expect.any(String),
+    fullName:'Larry Graham',
+    associatedActs:'Sly and The Family Stone, Graham Central Station'
+  })
 })
