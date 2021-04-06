@@ -2,7 +2,7 @@ const form = document.querySelector('form');
 const fileField = document.querySelector('input[type="file"]');
 import {renderData} from './renderData.js'
 const ul = document.querySelector('ul');
-const endpoint = 'https://fast-wave-43828.herokuapp.com//api/v1/upload'
+const endpoint = 'https://fast-wave-43828.herokuapp.com/api/v1/upload'
 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
